@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profiles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEO-bS-Bn6">
-                                <rect key="frame" x="16" y="44" width="382" height="60"/>
+                                <rect key="frame" x="16" y="44" width="330" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="52L-td-9Gm"/>
                                 </constraints>
@@ -24,30 +24,60 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ZWz-vK-c9c">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ajx-J8-7cQ">
                                 <rect key="frame" x="0.0" y="112" width="414" height="750"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <subviews>
+                                    <searchBar hidden="YES" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="FsJ-ZI-ELt">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="2jk-bN-bcL"/>
+                                        </constraints>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="taX-x5-iTS"/>
+                                        </connections>
+                                    </searchBar>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ZWz-vK-c9c">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="750"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="BYZ-38-t0r" id="wR9-r4-lPU"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="79f-sd-1si"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fM1-aN-1Yg">
+                                <rect key="frame" x="354" y="44" width="52" height="60"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="magnifyingglass" catalog="system"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="wR9-r4-lPU"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="79f-sd-1si"/>
+                                    <action selector="serachBtnAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L5S-Zv-Ccd"/>
                                 </connections>
-                            </tableView>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.076872671540000007" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XEO-bS-Bn6" secondAttribute="trailing" constant="16" id="4bH-uj-E8T"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XEO-bS-Bn6" secondAttribute="trailing" constant="68" id="4bH-uj-E8T"/>
+                            <constraint firstItem="fM1-aN-1Yg" firstAttribute="leading" secondItem="XEO-bS-Bn6" secondAttribute="trailing" constant="8" symbolic="YES" id="52R-w1-V2y"/>
                             <constraint firstItem="XEO-bS-Bn6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="848-YY-fVu"/>
+                            <constraint firstItem="Ajx-J8-7cQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CoN-LA-8RL"/>
                             <constraint firstItem="XEO-bS-Bn6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="LAD-hL-BLh"/>
-                            <constraint firstItem="ZWz-vK-c9c" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="epV-g1-gBD"/>
-                            <constraint firstItem="ZWz-vK-c9c" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="iPD-4P-D8J"/>
-                            <constraint firstItem="ZWz-vK-c9c" firstAttribute="top" secondItem="XEO-bS-Bn6" secondAttribute="bottom" constant="8" symbolic="YES" id="jAi-iu-dkC"/>
-                            <constraint firstItem="ZWz-vK-c9c" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="tMr-Cb-Vwm"/>
+                            <constraint firstItem="Ajx-J8-7cQ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="P5b-jO-HbC"/>
+                            <constraint firstItem="Ajx-J8-7cQ" firstAttribute="top" secondItem="fM1-aN-1Yg" secondAttribute="bottom" constant="8" id="Qxa-LA-wi8"/>
+                            <constraint firstAttribute="trailing" secondItem="fM1-aN-1Yg" secondAttribute="trailing" constant="8" id="Zs6-Eg-Yeg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ajx-J8-7cQ" secondAttribute="bottom" id="e3C-EG-eGp"/>
+                            <constraint firstItem="Ajx-J8-7cQ" firstAttribute="top" secondItem="XEO-bS-Bn6" secondAttribute="bottom" constant="8" id="fiE-ce-pyu"/>
+                            <constraint firstItem="fM1-aN-1Yg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ldd-tN-LZb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="EQM-FY-QCS"/>
                     <connections>
                         <outlet property="profileListView" destination="ZWz-vK-c9c" id="Sdb-Fu-mdX"/>
+                        <outlet property="searchBar" destination="FsJ-ZI-ELt" id="RNU-LB-opL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -128,5 +158,6 @@
     </scenes>
     <resources>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
     </resources>
 </document>

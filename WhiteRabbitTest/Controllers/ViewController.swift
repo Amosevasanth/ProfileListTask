@@ -17,6 +17,15 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.showsCancelButton = true
+            searchBar.barTintColor = #colorLiteral(red: 0.09902153164, green: 0.09902153164, blue: 0.09902153164, alpha: 1)
+            UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes([NSAttributedString.Key(rawValue: NSAttributedString.Key.foregroundColor.rawValue): UIColor.lightGray], for: .normal)
+            searchBar.searchTextField.backgroundColor = .lightGray
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,18 +41,23 @@ class ViewController: UIViewController {
         }
 
     }
+    
+    @IBAction func serachBtnAction(_ sender: UIButton) {
+        searchBar.isHidden = !searchBar.isHidden
+    }
+    
 
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.listCount
+        return viewModel.filterList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell") as! ProfileCell
-        cell.configureCell(profile: viewModel.profileList[indexPath.row])
+        cell.configureCell(profile: viewModel.filterList[indexPath.row])
         return cell
     }
     
@@ -53,9 +67,27 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = ProfileDetailViewController.getVC()
-        vc.profile = viewModel.profileList[indexPath.row]
+        vc.profile = viewModel.filterList[indexPath.row]
         self.present(vc, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            viewModel.filterData(searchText)
+        } else {
+            viewModel.resetData()
+        }
+        profileListView.reloadData()
+
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        viewModel.resetData()
+        searchBar.isHidden = true
+        profileListView.reloadData()
+    }
+}
